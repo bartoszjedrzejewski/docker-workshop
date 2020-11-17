@@ -2,14 +2,17 @@
 FROM python:3.8.6-slim-buster
 
 #create user
-RUN adduser --disabled-password --gecos '' django
-USER django
+RUN adduser --uid 1000 --disabled-password --gecos '' appuser
+USER appuser
 
 # set work directory
 WORKDIR /usr/src/app
 
 # copy all files from base directory
-COPY . .
+COPY --chown=1000:1000 . .
+
+# document which port containers need
+EXPOSE 8080
 
 #setup entrypoint for it to be run at container startup
 ENTRYPOINT ["/bin/bash", "entrypoint.sh"]
