@@ -5,6 +5,9 @@ FROM python:3.8.6-slim-buster
 RUN adduser --uid 1000 --disabled-password --gecos '' appuser
 USER appuser
 
+#set output to unbuffered for logs to work
+ENV PYTHONUNBUFFERED=1
+
 # set work directory
 WORKDIR /usr/src/app
 
